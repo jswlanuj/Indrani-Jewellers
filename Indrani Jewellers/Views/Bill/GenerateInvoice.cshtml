@@ -1,0 +1,304 @@
+﻿@model GenerateInvoice
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="employeeForm">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Generate Invoice</h4>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form method="post" asp-controller="Bill" asp-action="GenerateInvoice">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="mb-3">
+                                            <label asp-for="GoldRate" class="control-label">Gold Rate</label>
+                                            <input asp-for="GoldRate" value="73269" class="form-control" required id="goldRate" />
+                                            <span asp-validation-for="GoldRate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="mb-3">
+                                            <label asp-for="GoldMakingCharges" class="control-label">Gold Labour</label>
+                                            <input asp-for="GoldMakingCharges" value="450" class="form-control" required id="goldLabour" />
+                                            <span asp-validation-for="GoldMakingCharges" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="mb-3">
+                                            <label asp-for="SilverRate" class="control-label">Silver Rate</label>
+                                            <input asp-for="SilverRate" value="93109" class="form-control" required id="silverRate" />
+                                            <span asp-validation-for="SilverRate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="mb-3">
+                                            <label asp-for="SilverMakingCharges" class="control-label">Silver Labour</label>
+                                            <input asp-for="SilverMakingCharges" value="100" class="form-control" required id="silverLabour" />
+                                            <span asp-validation-for="SilverMakingCharges" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mb-3">
+                                            <label asp-for="InvoiceDate" class="control-label">Invoice Date</label>
+                                            <input asp-for="InvoiceDate" type="date" class="form-control" required id="userId" />
+                                            <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        const today = new Date().toISOString().substr(0, 10);
+                                        document.getElementById('userId').value = today;
+                                    </script>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="CustomerName" class="control-label">Customer Name</label>
+                                            <input asp-for="CustomerName" class="form-control" required id="customerName" />
+                                            <span asp-validation-for="CustomerName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="ContactNumber" class="control-label">Contact Number</label>
+                                            <input asp-for="ContactNumber" type="text" class="form-control" required id="contactNumber" />
+                                            <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="Email" class="control-label"></label>
+                                            <input asp-for="Email" type="email" class="form-control" required id="email" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="DateOfBirth" class="control-label">Date of Birth</label>
+                                            <input asp-for="DateOfBirth" type="date" class="form-control" required id="dateOfBirth" />
+                                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="mb-3">
+                                            <label asp-for="invoiceItemLists[0].ProductName" class="control-label">Item</label>
+                                            <input asp-for="invoiceItemLists[0].ProductName" class="form-control" id="productName" />
+                                            <span asp-validation-for="invoiceItemLists[0]" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="mb-3">
+                                            <label asp-for="invoiceItemLists[0].ProductType" class="control-label">Type</label>
+                                            <select asp-for="invoiceItemLists[0].ProductType" class="form-control" id="productType">
+                                                <option value="">Select Type</option>
+                                                <option value="Gold">Gold</option>
+                                                <option value="Silver">Silver</option>
+                                            </select>
+                                            <span asp-validation-for="invoiceItemLists[0].ProductType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="mb-3">
+                                            <label asp-for="invoiceItemLists[0].HUID" class="control-label"></label>
+                                            <input asp-for="invoiceItemLists[0].HUID" class="form-control" id="huid" />
+                                            <span asp-validation-for="invoiceItemLists[0].HUID" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="mb-3">
+                                            <label asp-for="invoiceItemLists[0].Carat" class="control-label"></label>
+                                            <input asp-for="invoiceItemLists[0].Carat" class="form-control" id="carat" />
+                                            <span asp-validation-for="invoiceItemLists[0].Carat" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="mb-3">
+                                            <label asp-for="invoiceItemLists[0].Weight" class="control-label">Weight</label>
+                                            <input asp-for="invoiceItemLists[0].Weight" class="form-control" id="weight" />
+                                            <span asp-validation-for="invoiceItemLists[0].Weight" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="mb-3">
+                                            <label asp-for="invoiceItemLists[0].Price" class="control-label">Price</label>
+                                            <input asp-for="invoiceItemLists[0].Price" class="form-control" id="price" readonly />
+                                            <span asp-validation-for="invoiceItemLists[0].Price" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 d-flex align-items-center">
+                                        <button type="button" id="newItemId" class="btn btn-warning btn-block">Add</button>
+                                    </div>
+                                </div>
+                                <table id="example" class="table table-striped" style="width:100%">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>HUID</th>
+                                            <th>Carat</th>
+                                            <th>Weight</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table rows will be dynamically added here -->
+                                    </tbody>
+                                </table>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                        </div>
+                                        <!-- Right sidebar -->
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label asp-for="TotalPrice" class="control-label fw-bold">Amount</label>
+                                                        <input asp-for="TotalPrice" class="form-control" required id="totalPrice" />
+                                                        <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label asp-for="Gst" class="control-label fw-bold">GST in %</label>
+                                                        <input asp-for="Gst" value="3" class="form-control" required id="gst" />
+                                                        <span asp-validation-for="Gst" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label asp-for="NetPrice" class="control-label fw-bold">Total Amount</label>
+                                                        <input asp-for="NetPrice" class="form-control" required id="netPrice" />
+                                                        <span asp-validation-for="NetPrice" class="text-danger"></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-end">
+                                        <a class="btn btn-primary btn-block btn-label waves-effect waves-light" asp-controller="Bill" asp-action="Index">
+                                            <i class="ri-user-smile-line label-icon align-middle fs-16 me-2"></i>Back to List
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-block btn-label waves-effect waves-light">
+                                            <i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i>Create
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        function calculatePrice() {
+            var productType = $('#productType').val();
+            var weight = parseFloat($('#weight').val());
+            var price = 0;
+
+            if (productType === 'Gold') {
+                var goldRate = parseFloat($('#goldRate').val());
+                var goldLabour = parseFloat($('#goldLabour').val());
+                price = (goldRate / 10) * weight + (goldLabour * weight);
+            } else if (productType === 'Silver') {
+                var silverRate = parseFloat($('#silverRate').val());
+                var silverLabour = parseFloat($('#silverLabour').val());
+                price = (silverRate / 1000) * weight + (silverLabour / 10 * weight);
+            }
+
+            $('#price').val(price.toFixed(2)); // Set calculated price
+        }
+
+        // Trigger calculation when product type or weight changes
+        $('#productType, #weight').on('change keyup', function () {
+            calculatePrice();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        function calculateTotalPrice() {
+            var totalPrice = 0;
+            $('#example tbody tr').each(function () {
+                var price = parseFloat($(this).find('td:nth-child(5)').text());
+                if (!isNaN(price)) {
+                    totalPrice += price;
+                }
+            });
+            $('#totalPrice').val(totalPrice.toFixed(2));
+
+            var gstRate = parseFloat($('#gst').val());
+            var netPrice = totalPrice + (totalPrice * gstRate / 100);
+            $('#netPrice').val(netPrice.toFixed(2));
+        }
+
+        $("#newItemId").click(function () {
+            var productName = $('#productName').val();
+            var huid = $('#huid').val();
+            var carat = $('#carat').val();
+            var weight = $('#weight').val();
+            var price = $('#price').val();
+
+            var newRow = '<tr>' +
+                '<td>' + productName + '</td>' +
+                '<td>' + huid + '</td>' +
+                '<td>' + carat + '</td>' +
+                '<td>' + weight + '</td>' +
+                '<td>' + price + '</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-danger btn-sm delete-row"><i class="bi bi-trash"></i> Delete</button>' +
+                '</td>' +
+                '</tr>';
+
+            $('#example tbody').append(newRow);
+
+            $('#productName').val('');
+            $('#huid').val('');
+            $('#carat').val('');
+            $('#weight').val('');
+            $('#price').val('');
+
+            calculateTotalPrice();
+            attachEditDeleteHandlers();
+        });
+
+        function attachEditDeleteHandlers() {
+            $('.edit-row').off().click(function () {
+                var row = $(this).closest('tr');
+                var productName = row.find('td:nth-child(1)').text();
+                var huid = row.find('td:nth-child(2)').text();
+                var carat = row.find('td:nth-child(3)').text();
+                var weight = row.find('td:nth-child(4)').text();
+                var price = row.find('td:nth-child(5)').text();
+
+                $('#productName').val(productName);
+                $('#huid').val(huid);
+                $('#carat').val(carat);
+                $('#weight').val(weight);
+                $('#price').val(price);
+
+                row.remove();
+                calculateTotalPrice();
+            });
+
+            $('.delete-row').off().click(function () {
+                $(this).closest('tr').remove();
+                calculateTotalPrice();
+            });
+        }
+    });
+</script>

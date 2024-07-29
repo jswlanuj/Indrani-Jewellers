@@ -1,0 +1,77 @@
+﻿@model Indrani_Jewellers.Models.Customer
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="employeeForm">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Add New Users</h4>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form method="post" asp-controller="Customer" asp-action="Create" class="row g-3 needs-validation" novalidate>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="CustomerName" class="control-label"></label>
+                                            <input asp-for="CustomerName" class="form-control" required id="userId" />
+                                            <span asp-validation-for="CustomerName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="Email" class="control-label"></label>
+                                            <input asp-for="Email" type="text" class="form-control" id="passId" required />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="Contact" class="control-label"></label>
+                                            <input asp-for="Contact" type="text" class="form-control" id="confpassId" required />
+                                            <span asp-validation-for="Contact" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="DateOfBirth" class="control-label"></label>
+                                            <input asp-for="DateOfBirth" type="date" class="form-control" id="confpassId" required />
+                                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="text-end">
+                                            <a class="btn btn-primary btn-block btn-label waves-effect waves-light" asp-controller="Customer" asp-action="Index">
+                                                <i class="ri-user-smile-line label-icon align-middle fs-16 me-2"></i>Back to List
+                                            </a>
+                                            <button type="submit" class="btn btn-success btn-block btn-label waves-effect waves-light">
+                                                <i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i>Create
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+

@@ -1,0 +1,94 @@
+﻿@model Indrani_Jewellers.Models.Users
+@{
+    Layout = null;
+}
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container-fluid" style="height: 100vh;">
+    <div class="row" style="height: 100%;">
+        <!-- Left Side -->
+        <div class="col-md-6" style="background-color:pink; height: 100%;">
+               <div style="text-align: center; margin-top:10%">
+            <img src="~/assets/images/LogoLeft.png" class="img-fluid" style="width: 80%; height: 80%;" alt="">
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="col-md-6" style="background-color: white; height: 100%;">
+            <div style="margin-top: 80px; text-align: center;">
+                <img src="~/assets/images/indLogo.png" class="img-fluid" style="width: 350px; height: 150px;" alt="">
+            </div>
+            <div>
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <form asp-action="Login" asp-controller="Account" method="post">
+                        
+                              
+
+                                <div class="form-group">
+                                    <label asp-for="userName" class="control-label"></label>
+                                    <input asp-for="userName" class="form-control" />
+                                    <span asp-validation-for="userName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="password" class="control-label"></label>
+                                    <div class="input-group">
+                                        <input asp-for="password" type="password" class="form-control" id="password" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="password" class="text-danger"></span>
+                                </div>
+                                <div class="mb-1 mt-0">
+                                    <a asp-controller="Account" asp-action="Register" class="font-italic">New User, Register</a>
+                                </div>
+
+    
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<script src="~/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+@if (TempData["success"] != null)
+{
+    <script>
+        debugger;
+        var successMessage = '@TempData["success"]';
+        var isSuccess = '@TempData["Valid"]' === "1";
+
+        Swal.fire({
+            icon: isSuccess ? 'success' : 'error',
+            title: successMessage,
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+}

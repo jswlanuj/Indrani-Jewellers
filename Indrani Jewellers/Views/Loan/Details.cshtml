@@ -1,0 +1,114 @@
+﻿@model LoanDetailsViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="loanForm">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Foreclousere Gold & Silver Loan</h4>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form method="post" asp-controller="Loan" asp-action="Create" class="row g-3 needs-validation" novalidate>
+                                <div id="page1">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.CustomerName" class="control-label"></label>
+                                                <input asp-for="loan.CustomerName" class="form-control" id="cname" required />
+                                                <span asp-validation-for="loan.CustomerName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.Contact" class="control-label"></label>
+                                                <input asp-for="loan.Contact" id="contact" class="form-control" required />
+                                                <span asp-validation-for="loan.Contact" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.Email" class="control-label"></label>
+                                                <input asp-for="loan.Email" id="email" type="email" class="form-control" required />
+                                                <span asp-validation-for="loan.Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+                              
+
+                
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.FromDate" class="control-label"></label>
+                                                <input asp-for="loan.FromDate" type="datetime-local" class="form-control" id="fromDate" required />
+                                                <span asp-validation-for="loan.FromDate" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.ToDate" class="control-label"></label>
+                                                <input asp-for="loan.ToDate" type="datetime-local" class="form-control" id="toDate" required />
+                                                <span asp-validation-for="loan.ToDate" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.IntrestPerMonth" class="control-label"></label>
+                                                <input asp-for="loan.IntrestPerMonth" class="form-control" id="interestRate" required value="3%" readonly />
+                                                <span asp-validation-for="loan.IntrestPerMonth" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.LoanAmount" class="control-label"></label>
+                                                <input asp-for="loan.LoanAmount" class="form-control" id="loanAmount" required readonly />
+                                                <span asp-validation-for="loan.LoanAmount" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.GoldRate" class="control-label"></label>
+                                                <input asp-for="loan.GoldRate" class="form-control" id="goldRate" required value="7000" readonly />
+                                                <span asp-validation-for="loan.GoldRate" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.SilverRate" class="control-label"></label>
+                                                <input asp-for="loan.SilverRate" class="form-control" id="silverRate" required value="80" readonly />
+                                                <span asp-validation-for="loan.SilverRate" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.TotalGoldWeight" class="control-label"></label>
+                                                <input asp-for="loan.TotalGoldWeight" class="form-control" id="totalGoldWeight" required readonly />
+                                                <span asp-validation-for="loan.TotalGoldWeight" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="loan.TotalSilverWeight" class="control-label"></label>
+                                                <input asp-for="loan.TotalSilverWeight" class="form-control" id="totalSilverWeight" required readonly />
+                                                <span asp-validation-for="loan.TotalSilverWeight" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+               
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>

@@ -1,0 +1,341 @@
+﻿@model Indrani_Jewellers.Models.LoanModel
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="header bg-white border-bottom shadow-sm py-3 fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="/LandingPage/Index" class="logo">
+            <img src="~/assets/images/lplogo.jpg" alt="Jewellery Store" class="header-img img-fluid" style="max-width: 150px;">
+        </a>
+        <ul class="nav">
+            <li class="nav-item"><a href="#" class="nav-link text-dark">Diamond</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-dark">Gold</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-dark">Platinum</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-dark">Silver</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-dark">Coins</a></li>
+        </ul>
+        <ul class="nav">
+            <li class="nav-item"><a asp-controller="LandingPage" asp-action="Loan" class="nav-link text-dark">Apply for Gold & Silver Loan</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-dark"></a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-dark"></a></li>
+            <li class="nav-item"><a asp-controller="Account" asp-action="Login" class="nav-link text-dark">Login</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid" style="height: 100vh;">
+    <div class="row" style="height: 100%;">
+
+        <!-- Left Side -->
+        <div class="col-md-6 align-items-center justify-content-center" style="background-color: whitesmoke;">
+            <div style="margin-top:10%">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="mb-4 text-center"><i>Check Your Gold & Silver Status</i></h3>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Select Metal</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="metal" id="goldRadio" value="gold" checked>
+                                        <label class="form-check-label" for="goldRadio">Gold</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="metal" id="silverRadio" value="silver">
+                                        <label class="form-check-label" for="silverRadio">Silver</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="metal" id="bothRadio" value="both">
+                                        <label class="form-check-label" for="bothRadio">Both</label>
+                                    </div>
+                                </div>
+
+                                <div class="gold">
+                                    <div class="row">
+                                        <div class="col-6 mb-3">
+                                            <label for="goldProduct" class="form-label">Enter Gold Product</label>
+                                            <input type="text" id="goldProduct" class="form-control" name="goldproduct" />
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <label for="goldWeight" class="form-label">Enter Gold Weight</label>
+                                            <input type="text" id="goldWeight" class="form-control" name="goldweight" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="silver" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-6 mb-3">
+                                            <label for="silverProduct" class="form-label">Enter Silver Product</label>
+                                            <input type="text" id="silverProduct" class="form-control" name="silverproduct" />
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <label for="silverWeight" class="form-label">Enter Silver Weight</label>
+                                            <input type="text" id="silverWeight" class="form-control" name="silverweight" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="both" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-6 mb-3">
+                                            <label for="product" class="form-label">Enter Product</label>
+                                            <input type="text" id="product" class="form-control" name="product" />
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <label for="weight" class="form-label">Enter Weight</label>
+                                            <input type="text" id="weight" class="form-control" name="weight" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="fromDate" class="form-label">From Date</label>
+                                        <input type="date" id="fromDate" class="form-control" name="fromDate" />
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="toDate" class="form-label">To Date</label>
+                                        <input type="date" id="toDate" class="form-control" name="toDate" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="sellingValue" class="form-label">Selling Value</label>
+                                        <input type="text" id="sellingValue" class="form-control" name="sellingValue" readonly />
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="mortgageValue" class="form-label">Mortgage Value</label>
+                                        <input type="text" id="mortgageValue" class="form-control" name="mortgageValue" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-6">
+                                        <p class="text-center"><i>The displayed price reflects today's live rates</i></p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <button type="button" class="btn btn-primary" style="width:100%" onclick="calculateValues()">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="col-md-6" style="background-color: antiquewhite;">
+            <div style="margin-top:10%">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <form asp-action="LandingPage" asp-controller="Loan" method="post">
+                                    <h3 class="mb-4 text-center"><i>Check Your Loan Status</i></h3>
+                                    <div class="form-group">
+                                        <label asp-for="CID" class="control-label">Enter Your ID</label>
+                                        <input asp-for="CID" class="form-control" />
+                                    </div>
+
+                                    <div class="col-12 mb-6">
+                                        <p style="font-size:large" class="text-center"><i>Or</i></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dateID" class="control-label">Date</label>
+                                        <input id="dateID" type="date" class="form-control" />
+                                        <span id="dateError" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="priceId" class="control-label">Amount</label>
+                                        <input id="priceId" class="form-control" placeholder="Enter Amount" />
+                                        <span id="priceError" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="PrincipalID" class="control-label">Total Amount To Be Paid</label>
+                                        <input id="PrincipalID" class="form-control" placeholder="Principal Amount" readonly />
+                                        <span id="totalError" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="button" onclick="calculateTotal()" class="btn btn-primary" style="width:100%">Get Details</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and other scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var goldRadio = document.getElementById('goldRadio');
+        var silverRadio = document.getElementById('silverRadio');
+        var bothRadio = document.getElementById('bothRadio');
+
+        var goldDivs = document.querySelectorAll('.gold');
+        var silverDivs = document.querySelectorAll('.silver');
+        var bothDivs = document.querySelectorAll('.both');
+
+        goldRadio.addEventListener('change', function () {
+            if (goldRadio.checked) {
+                showGold();
+            }
+        });
+
+        silverRadio.addEventListener('change', function () {
+            if (silverRadio.checked) {
+                showSilver();
+            }
+        });
+
+        bothRadio.addEventListener('change', function () {
+            if (bothRadio.checked) {
+                showBoth();
+            }
+        });
+
+        goldRadio.checked = true;
+        showGold();
+    });
+
+    function showGold() {
+        document.querySelectorAll('.gold').forEach(function (el) {
+            el.style.display = 'block';
+        });
+        document.querySelectorAll('.silver').forEach(function (el) {
+            el.style.display = 'none';
+        });
+        document.querySelectorAll('.both').forEach(function (el) {
+            el.style.display = 'none';
+        });
+    }
+
+    function showSilver() {
+        document.querySelectorAll('.gold').forEach(function (el) {
+            el.style.display = 'none';
+        });
+        document.querySelectorAll('.silver').forEach(function (el) {
+            el.style.display = 'block';
+        });
+        document.querySelectorAll('.both').forEach(function (el) {
+            el.style.display = 'none';
+        });
+    }
+
+    function showBoth() {
+        document.querySelectorAll('.gold').forEach(function (el) {
+            el.style.display = 'block';
+        });
+        document.querySelectorAll('.silver').forEach(function (el) {
+            el.style.display = 'block';
+        });
+        document.querySelectorAll('.both').forEach(function (el) {
+            el.style.display = 'none';
+        });
+    }
+
+    function calculateValues() {
+        var metal = document.querySelector('input[name="metal"]:checked').value;
+        var sellingValue = document.getElementById('sellingValue');
+        var mortgageValue = document.getElementById('mortgageValue');
+        var fromDate = document.getElementById('fromDate').value;
+        var toDate = document.getElementById('toDate').value;
+
+        if (metal === 'gold') {
+            var goldWeight = parseFloat(document.getElementById('goldWeight').value);
+            var goldSelling = (goldWeight * 7000) * 0.8;
+            var goldMortgage = goldSelling * 0.5;
+
+            if (fromDate && toDate) {
+                var months = Math.ceil((new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24 * 30));
+                var interest = goldMortgage * 0.03 * months;
+                goldMortgage += interest;
+            }
+
+            sellingValue.value = goldSelling.toFixed(2);
+            mortgageValue.value = goldMortgage.toFixed(2);
+        } else if (metal === 'silver') {
+            var silverWeight = parseFloat(document.getElementById('silverWeight').value);
+            var silverSelling = (silverWeight * 70) - ((silverWeight * 70) * 0.3);
+            var silverMortgage = silverSelling * 0.5;
+
+            if (fromDate && toDate) {
+                var months = Math.ceil((new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24 * 30));
+                var interest = silverMortgage * 0.03 * months;
+                silverMortgage += interest;
+            }
+
+            sellingValue.value = silverSelling.toFixed(2);
+            mortgageValue.value = silverMortgage.toFixed(2);
+        } else if (metal === 'both') {
+            var goldWeight = parseFloat(document.getElementById('goldWeight').value);
+            var silverWeight = parseFloat(document.getElementById('silverWeight').value);
+
+            var goldSelling = (goldWeight * 7000) * 0.8;
+            var silverSelling = (silverWeight * 80) * 0.3;
+
+            var totalSelling = goldSelling + silverSelling;
+            var totalMortgage = totalSelling * 0.5;
+
+            if (fromDate && toDate) {
+                var months = Math.ceil((new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24 * 30));
+                var interest = totalMortgage * 0.03 * months;
+                totalMortgage += interest;
+            }
+
+            sellingValue.value = totalSelling.toFixed(2);
+            mortgageValue.value = totalMortgage.toFixed(2);
+        }
+    }
+
+</script>
+
+<script>
+    function calculateTotal() {
+        var dateSelected = $("#dateID").val();
+        var priceEntered = parseFloat($("#priceId").val());
+        const Nowdate = new Date();
+        var months = Math.ceil((Nowdate - new Date(dateSelected)) / (1000 * 60 * 60 * 24 * 30));
+        var interest = priceEntered * 0.03 * months;
+        var finalprice = priceEntered + interest;
+        $("#PrincipalID").val(finalprice.toFixed(2));
+    }
+</script>
+
+@if (TempData["success"] != null)
+{
+    <script>
+        var successMessage = '@TempData["success"]';
+        var isSuccess = '@TempData["Valid"]' === "1";
+
+        Swal.fire({
+            icon: isSuccess ? 'success' : 'error',
+            title: successMessage,
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+}

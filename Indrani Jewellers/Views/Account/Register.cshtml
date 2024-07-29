@@ -1,0 +1,133 @@
+﻿@model Indrani_Jewellers.Models.Users
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <title>Register a New User</title>
+</head>
+<body>
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="row w-100 justify-content-center">
+            <div class="col-lg-10">
+                <div class="card" id="employeeForm">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Register a New User</h4>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form method="post" asp-controller="Account" asp-action="Register" class="row g-3 needs-validation" novalidate>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="userName" class="control-label"></label>
+                                            <input asp-for="userName" class="form-control" required id="userId" />
+                                            <span asp-validation-for="userName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="password" class="control-label"></label>
+                                            <input asp-for="password" type="text" class="form-control" id="passId" required />
+                                            <span asp-validation-for="password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                                            <input asp-for="ConfirmPassword" type="password" class="form-control" id="confpassId" required />
+                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label asp-for="roleId" class="control-label"></label>
+                                            @{
+                                                // Assuming "Customer" role has roleId = 1, update this based on your actual data
+                                                var roles = new SelectList(ViewBag.Role, "roleId", "role");
+                                                var selectedRole = roles.FirstOrDefault(r => r.Text == "Customer");
+                                                if (selectedRole != null)
+                                                {
+                                                    selectedRole.Selected = true;
+                                                }
+                                            }
+                                            @Html.DropDownListFor(M => M.roleId, roles, new { @class = "form-select", @disabled = "disabled" })
+                                            <span asp-validation-for="roleId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="text-end">
+                                            <a class="btn btn-primary btn-block btn-label waves-effect waves-light" asp-controller="Account" asp-action="Login">
+                                                <i class="ri-user-smile-line label-icon align-middle fs-16 me-2"></i>Back to List
+                                            </a>
+                                            <button type="submit" class="btn btn-success btn-block btn-label waves-effect waves-light">
+                                                <i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i>Create
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#confpassId").blur(function () {
+                var cp = $("#confpassId").val();
+                var p = $("#passId").val();
+
+                if (cp !== p) {
+                    var errormessage = "Passwords do not match!";
+                    $("#confpassId").val("");
+                    $("#confpassId").next(".text-danger").text(errormessage);
+                } else {
+                    $("#confpassId").next(".text-danger").text("");
+                }
+            });
+
+            $("#userId").blur(function () {
+                var user = $("#userId").val();
+      
+                $.ajax({
+                    url: "/Account/ValidateUser",
+                    type: "POST",
+                    data: { Username: user },
+                    success: function (response) {
+                        if (!response) {
+                            var errormessage = "Username is already taken!";
+                            $("#userId").val("");
+                            $("#userId").next(".text-danger").text(errormessage);
+                        } else {
+                            $("#userId").next(".text-danger").text("");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

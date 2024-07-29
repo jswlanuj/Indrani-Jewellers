@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Indrani_Jewellers.Models.Loan>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Manage Employee</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboards</a></li>
+                    <li class="breadcrumb-item active">Employee</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="leadsList">
+            <br />
+
+            <!-- Search Button -->
+            <div class="container">
+                <div class="row justify-content-between mb-3">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+                    </div>
+                    <div class="col-md-3 text-md-right">
+                        <a class="btn btn-warning btn-block btn-label waves-effect waves-light" asp-controller="Loan" asp-action="Create">
+                           Apply Loan
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disabled input -->
+            <div class="card-body">
+                <table id="productTable" class="display table table-bordered" style="width:100%">
+                    <thead class="table-light">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CustomerName)
+                            </th>
+                           
+                            <th>
+                                @Html.DisplayNameFor(model => model.Contact)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LoanAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FromDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ToDate)
+                            </th>
+                            <th class="w-25">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                </td>
+                           
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Contact)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LoanAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FromDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ToDate)
+                                </td>
+                                <td>
+                                    <ul class="list-inline hstack gap-2 mb-0">
+                                        <li class="list-inline-item edit-item-btn">
+                                            <a href="@Url.Action("Edit", new { id = item.LID })" class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">Edit</a>
+                                        </li>
+                                        <li class="list-inline-item view-item-btn">
+                                            <a href="@Url.Action("Details", new { id = item.LID })" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">View</a>
+                                        </li>
+                                        <li class="list-inline-item remove-item-btn">
+                                            <a href="@Url.Action("Delete", new { id = item.LID })" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Delete">Delete</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- Search Button -->
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+<!-- Bootstrap and DataTables Scripts and Stylesheets -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- DataTable Initialization -->
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+@if (TempData["success"] != null)
+{
+    <script>
+        debugger;
+        var successMessage = '@TempData["success"]';
+        var isSuccess = '@TempData["Valid"]' === "1";
+
+        Swal.fire({
+            icon: isSuccess ? 'success' : 'error',
+            title: successMessage,
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+}
+
+<script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+        var input = this.value.trim().toLowerCase();
+        var rows = document.querySelectorAll("#productTable tbody tr");
+
+        rows.forEach(function (row) {
+            var text = row.innerText.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    });
+</script>

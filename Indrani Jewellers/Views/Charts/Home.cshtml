@@ -1,0 +1,89 @@
+﻿@model List<Indrani_Jewellers.Models.ProductMasterModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Charts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+             
+                <div id="barChart"></div>
+            </div>
+            <div class="col-md-6">
+
+                <div id="doughnutChart"></div>
+       
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <div id="lineChart"></div>
+            </div>
+            <div class="col-md-6">
+       
+                <div id="areaChart"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = @Html.Raw(Json.Serialize(Model));
+            const productNames = data.map(product => product.productName);
+            const quantities = data.map(product => product.quantity);
+
+            // Bar Chart
+            var barOptions = {
+                chart: { type: 'bar' },
+                series: [{ name: 'Quantity', data: quantities }],
+                xaxis: { categories: productNames }
+            }
+            var barChart = new ApexCharts(document.querySelector("#barChart"), barOptions);
+            barChart.render();
+
+            // Line Chart
+            var lineOptions = {
+                chart: {
+                    type: 'line'
+                },
+                series: [{
+                    name: 'Quantity',
+                    data: quantities,
+                    color: '#ff0000' // Red color specified here
+                }],
+                xaxis: {
+                    categories: productNames
+                }
+            };
+
+            var lineChart = new ApexCharts(document.querySelector("#lineChart"), lineOptions);
+            lineChart.render();
+
+
+            // Doughnut Chart
+            var doughnutOptions = {
+                chart: { type: 'donut' },
+                series: quantities,
+                labels: productNames
+            }
+            var doughnutChart = new ApexCharts(document.querySelector("#doughnutChart"), doughnutOptions);
+            doughnutChart.render();
+
+            // Area Chart
+            var areaOptions = {
+                chart: { type: 'area' },
+                series: [{ name: 'Quantity', data: quantities }],
+                xaxis: { categories: productNames }
+            }
+            var areaChart = new ApexCharts(document.querySelector("#areaChart"), areaOptions);
+            areaChart.render();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+﻿@model Indrani_Jewellers.Models.ProductDetailsModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="leadsList">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Add Product Details</h4>
+                    </div><!-- end card header -->
+                    <br />
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form>
+                                <div class="products-container">
+                                    <!-- Template for Product, HUID, Weight fields -->
+                                    <div class="product-row row">
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="fk_pm_id" class="control-label"></label>
+                                                @Html.DropDownListFor(M => M.fk_pm_id, new SelectList(ViewBag.ProductNames, "productId", "productName"), "Select Product", new { @class = "form-select ", @required = "true", @validate = "true" })
+                                                <span asp-validation-for="fk_pm_id" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="HUID" class="control-label"></label>
+                                                <input asp-for="HUID" type="number" class="form-control" oninput="this.value = this.value.slice(0, 6)" min="0" required />
+                                                <span asp-validation-for="HUID" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="mb-3">
+                                                <label asp-for="weight" class="control-label"></label>
+                                                <input asp-for="weight" type="number" class="form-control" required />
+                                                <span asp-validation-for="weight" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 d-flex align-items-end">
+                                            <div class="mb-3">
+                                                <button type="button" class="btn btn-danger btn-block btn-label waves-effect waves-light remove-product">
+                                                    <i class="fas fa-minus-circle label-icon align-middle fs-16 me-2"></i>Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="text-end">
+                                        <button type="button" class="btn btn-warning btn-block btn-label waves-effect waves-light" id="add-product">
+                                            <i class="fas fa-plus-circle label-icon align-middle fs-16 me-2"></i>Add
+                                        </button>
+                                        <a class="btn btn-primary btn-block btn-label waves-effect waves-light" asp-controller="ProductDetails" asp-action="Index">
+                                            <i class="ri-user-smile-line label-icon align-middle fs-16 me-2"></i>Back to List
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-block btn-label waves-effect waves-light">
+                                            <i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i>Create
+                                        </button>
+                                    </div>
+                                </div><!--end col-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+    </div>
+    <!--end col-->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        debugger;
+        $('#add-product').click(function () {
+            var productTemplate = $('.product-row').first().clone();
+            productTemplate.find(':input').val(''); // Clear input values
+            $('.products-container').append(productTemplate);
+        });
+
+        $(document).on('click', '.remove-product', function () {
+            $(this).closest('.product-row').remove();
+        });
+
+        $('form').submit(function (event) {
+            debugger;
+            event.preventDefault();
+
+            var productDataArray = [];
+
+            $('.product-row').each(function () {
+                var productData = {};
+
+                $(this).find(':input').each(function () {
+                    productData[$(this).attr('name')] = $(this).val();
+                });
+
+                productDataArray.push(productData);
+            });
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(productDataArray),
+                success: function (response) {
+                    console.log('Form submitted successfully');
+                    window.location.href = "/ProductDetails/Index";
+
+                    // Display TempData message
+                    var successMessage = response.success;
+                    var isSuccess = response.valid === "1";
+                    if (successMessage) {
+                        Swal.fire({
+                            icon: isSuccess ? 'success' : 'error',
+                            title: successMessage,
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error occurred while submitting form');
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
